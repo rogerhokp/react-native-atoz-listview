@@ -48,9 +48,12 @@ export default class SelectableSectionsListView extends React.PureComponent {
   componentDidMount() {
     // push measuring into the next tick
     setTimeout(() => {
-      UIManager.measure(ReactNative.findNodeHandle(this.refs.view), (x, y, w, h) => {
-        this.containerHeight = h;
-      });
+      const node = ReactNative.findNodeHandle(this.refs.view);
+      if(node){
+        UIManager.measure(ReactNative.findNodeHandle(this.refs.view), (x, y, w, h) => {
+          this.containerHeight = h;
+        });
+      }
     }, 0);
     // trick to implement contentOffset on Android
     if (this.props.contentOffset !== undefined && Platform.OS === 'android') {
